@@ -5,17 +5,30 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
   };
 
-  outputs = { self, nixpkgs, ... }:
+  outputs = { self, nixpkgs, ... }@inputs:
     let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
+      inherit (nixpkgs.lib) nixosSystem;
+
+      mkHost = { system ? "x86_64-linux", modules }:
+        nixosSystem {
+          inherit system modules;
+          specialArgs = { inherit inputs self; };
+        };
     in {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [
-          ./hardware-configuration.nix
-          ./configuration.nix
-        ];
+      nixosModules = {
+        base = {
+          core = import ./modules/base/core.nix;
+        };
+        services = {
+          ssh = import ./modules/services/ssh.nix;
+          tailscale = import ./modules/services/tailscale.nix;
+        };
+      };
+
+      nixosConfigurations = {
+        geidi = mkHost {
+          modules = [ ./hosts/geidi/default.nix ];
+        };
       };
     };
 }
