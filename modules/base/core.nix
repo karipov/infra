@@ -34,6 +34,7 @@
     btop
     smartmontools
     nvme-cli
+    hdparm
   ];
 
   time.timeZone = "America/New_York";

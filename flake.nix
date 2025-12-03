@@ -2,10 +2,12 @@
   description = "Komron's NixOS homelab infra";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, disko, ... }@inputs:
     let
       inherit (nixpkgs.lib) nixosSystem;
 
@@ -22,12 +24,16 @@
         services = {
           ssh = import ./modules/services/ssh.nix;
           tailscale = import ./modules/services/tailscale.nix;
+          jellyfin = import ./modules/services/jellyfin.nix;
         };
       };
 
       nixosConfigurations = {
         geidi = mkHost {
-          modules = [ ./hosts/geidi/default.nix ];
+          modules = [
+            disko.nixosModules.disko
+            ./hosts/geidi/default.nix
+          ];
         };
       };
     };
