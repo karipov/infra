@@ -3,11 +3,9 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, disko, ... }@inputs:
+  outputs = { self, nixpkgs, ... }@inputs:
     let
       inherit (nixpkgs.lib) nixosSystem;
 
@@ -25,15 +23,13 @@
           ssh = import ./modules/services/ssh.nix;
           tailscale = import ./modules/services/tailscale.nix;
           jellyfin = import ./modules/services/jellyfin.nix;
+          qbittorrent = import ./modules/services/qbittorrent.nix;
         };
       };
 
       nixosConfigurations = {
         geidi = mkHost {
-          modules = [
-            disko.nixosModules.disko
-            ./hosts/geidi/default.nix
-          ];
+          modules = [ ./hosts/geidi/default.nix ];
         };
       };
     };

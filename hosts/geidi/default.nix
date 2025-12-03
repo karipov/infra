@@ -18,6 +18,7 @@ in
     self.nixosModules.services.ssh
     self.nixosModules.services.tailscale
     self.nixosModules.services.jellyfin
+    self.nixosModules.services.qbittorrent
   ];
 
   networking.hostName = "geidi";
@@ -28,9 +29,12 @@ in
   # Ensure media directories exist and have correct permissions
   # This creates directories with group ownership and group read/write permissions
   # The setgid bit (2) ensures new files inherit the media group
-  systemd.tmpfiles.rules = map (dir: 
+  systemd.tmpfiles.rules = (map (dir: 
     "d ${dir} 2775 komron media -"
-  ) mediaDirs;
+  ) mediaDirs) ++ [
+    # qBittorrent incomplete downloads directory on fast storage
+    "d /mnt/fast/apps/qbittorrent/incomplete 2775 komron media -"
+  ];
 }
 
 
