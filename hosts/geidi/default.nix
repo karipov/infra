@@ -19,16 +19,18 @@ in
     self.nixosModules.services.tailscale
     self.nixosModules.services.jellyfin
     self.nixosModules.services.qbittorrent
+    self.nixosModules.services.prowlarr
+    self.nixosModules.services.sonarr
+    self.nixosModules.services.radarr
+    self.nixosModules.services.caddy
   ];
 
   networking.hostName = "geidi";
 
-  # Add komron to media group for shared access
+  # add komron to media group for shared access
   users.users.komron.extraGroups = [ "media" ];
 
-  # Ensure media directories exist and have correct permissions
-  # This creates directories with group ownership and group read/write permissions
-  # The setgid bit (2) ensures new files inherit the media group
+  # ensure media directories exist and have correct permissions
   systemd.tmpfiles.rules = (map (dir: 
     "d ${dir} 2775 komron media -"
   ) mediaDirs) ++ [

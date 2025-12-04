@@ -1,18 +1,32 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
-  services.jellyfin = {
+  # enable OpenGL and Intel QuickSync hardware acceleration
+  hardware.opengl = {
     enable = true;
-    # Data directory for Jellyfin configuration, cache, and metadata
-    # Default: /var/lib/jellyfin
-    # dataDir = "/var/lib/jellyfin";
+    extraPackages = with pkgs; [
+      intel-media-driver       # Intel's VAAPI driver for newer GPUs
+      intel-vaapi-driver       # VAAPI driver for older Intel GPUs
+      vaapiVdpau               # VAAPI VDPAU backend
+      libvdpau-va-gl           # VDPAU driver with OpenGL/VAAPI backend
+      intel-compute-runtime    # OpenCL support for hardware tone-mapping and subtitle burn-in
+      vpl-gpu-rt               # QSV support for 11th gen Intel GPUs and newer
+      intel-media-sdk          # QSV support up to 11th gen Intel GPUs
+    ];
   };
 
+  services.jellyfin = {
+    enable = true;
+  };
+
+  # open firewall ports for local access to Jellyfin
+  # external access is also available via Caddy reverse proxy at watch.komron.me
   networking.firewall.allowedTCPPorts = [ 8096 8920 ];
 
-  # Create a media group for shared access between users and Jellyfin
-  # Host-specific configuration should add users and configure directories
+  # create a media group for shared access between users and Jellyfin
+  # host-specific configuration should add users and configure directories
   users.groups.media = {};
-  users.users.jellyfin.extraGroups = [ "media" ];
+  # add jellyfin user to video and render groups for GPU access
+  users.users.jellyfin.extraGroups = [ "media" "video" "render" ];
 }
 

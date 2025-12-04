@@ -24,6 +24,10 @@
           tailscale = import ./modules/services/tailscale.nix;
           jellyfin = import ./modules/services/jellyfin.nix;
           qbittorrent = import ./modules/services/qbittorrent.nix;
+          prowlarr = import ./modules/services/prowlarr.nix;
+          sonarr = import ./modules/services/sonarr.nix;
+          radarr = import ./modules/services/radarr.nix;
+          caddy = import ./modules/services/caddy.nix;
         };
       };
 
