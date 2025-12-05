@@ -51,10 +51,6 @@ in
 
     time.timeZone = "America/New_York";
 
-    services.xserver.enable = false;
-    services.xserver.displayManager.gdm.enable = false;
-    services.xserver.desktopManager.gnome.enable = false;
-
     # hard drive spindown configuration via hdparm
     systemd.services.hdparm-spindown = lib.mkIf (hddSpindownDevices != []) {
       description = "Set hdparm spindown/APM on HDDs";

@@ -15,6 +15,7 @@ in
     ./hardware.nix
     ./storage.nix
     self.nixosModules.base.core
+    self.nixosModules.base.motd
     self.nixosModules.services.ssh
     self.nixosModules.services.tailscale
     self.nixosModules.services.jellyfin
@@ -24,6 +25,8 @@ in
     self.nixosModules.services.radarr
     self.nixosModules.services.caddy
   ];
+
+  services.rust-motd.enable = true;
 
   networking.hostName = "geidi";
 

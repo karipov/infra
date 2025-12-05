@@ -18,6 +18,7 @@
       nixosModules = {
         base = {
           core = import ./modules/base/core.nix;
+          motd = import ./modules/base/motd.nix;
         };
         services = {
           ssh = import ./modules/services/ssh.nix;
