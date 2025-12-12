@@ -24,6 +24,7 @@ in
     self.nixosModules.services.sonarr
     self.nixosModules.services.radarr
     self.nixosModules.services.caddy
+    self.nixosModules.services.immich
   ];
 
   services.rust-motd.enable = true;
@@ -31,7 +32,8 @@ in
   networking.hostName = "geidi";
 
   # add komron to media group for shared access
-  users.users.komron.extraGroups = [ "media" ];
+  # add komron to immich group for access to photos directory
+  users.users.komron.extraGroups = [ "media" "immich" ];
 
   # ensure media directories exist and have correct permissions
   systemd.tmpfiles.rules = (map (dir: 
@@ -39,6 +41,8 @@ in
   ) mediaDirs) ++ [
     # qBittorrent incomplete downloads directory on fast storage
     "d /mnt/fast/apps/qbittorrent/incomplete 2775 komron media -"
+    # Immich photos directory
+    "d /mnt/fast/personal/photos 2775 immich immich -"
   ];
 }
 
