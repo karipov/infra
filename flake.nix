@@ -32,7 +32,6 @@
           caddy = import ./modules/services/caddy.nix;
           immich = import ./modules/services/immich.nix;
           unpackerr = import ./modules/services/unpackerr.nix;
-          profilarr = import ./modules/services/profilarr.nix;
         };
       };
 
