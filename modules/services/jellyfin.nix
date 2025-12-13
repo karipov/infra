@@ -7,11 +7,10 @@
     extraPackages = with pkgs; [
       intel-media-driver       # Intel's VAAPI driver for newer GPUs
       intel-vaapi-driver       # VAAPI driver for older Intel GPUs
-      vaapiVdpau               # VAAPI VDPAU backend
+      libva-vdpau-driver       # VAAPI VDPAU backend
       libvdpau-va-gl           # VDPAU driver with OpenGL/VAAPI backend
       intel-compute-runtime    # OpenCL support for hardware tone-mapping and subtitle burn-in
       vpl-gpu-rt               # QSV support for 11th gen Intel GPUs and newer
-      intel-media-sdk          # QSV support up to 11th gen Intel GPUs
     ];
   };
 

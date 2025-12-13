@@ -2,7 +2,7 @@
   description = "Komron's NixOS homelab infra";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
@@ -32,6 +32,7 @@
           caddy = import ./modules/services/caddy.nix;
           immich = import ./modules/services/immich.nix;
           unpackerr = import ./modules/services/unpackerr.nix;
+          profilarr = import ./modules/services/profilarr.nix;
         };
       };
 
