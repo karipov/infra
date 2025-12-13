@@ -28,6 +28,7 @@
           prowlarr = import ./modules/services/prowlarr.nix;
           sonarr = import ./modules/services/sonarr.nix;
           radarr = import ./modules/services/radarr.nix;
+          bazarr = import ./modules/services/bazarr.nix;
           caddy = import ./modules/services/caddy.nix;
           immich = import ./modules/services/immich.nix;
           unpackerr = import ./modules/services/unpackerr.nix;

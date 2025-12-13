@@ -23,6 +23,7 @@ in
     self.nixosModules.services.prowlarr
     self.nixosModules.services.sonarr
     self.nixosModules.services.radarr
+    self.nixosModules.services.bazarr
     self.nixosModules.services.caddy
     self.nixosModules.services.immich
     self.nixosModules.services.unpackerr
