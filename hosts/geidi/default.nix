@@ -25,6 +25,7 @@ in
     self.nixosModules.services.radarr
     self.nixosModules.services.caddy
     self.nixosModules.services.immich
+    self.nixosModules.services.unpackerr
   ];
 
   services.rust-motd.enable = true;
@@ -43,6 +44,8 @@ in
     "d /mnt/fast/apps/qbittorrent/incomplete 2775 komron media -"
     # Immich photos directory
     "d /mnt/fast/personal/photos 2775 immich immich -"
+    # Unpackerr config directory
+    "d /etc/unpackerr 0755 unpackerr unpackerr -"
   ];
 }
 

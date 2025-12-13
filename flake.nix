@@ -30,6 +30,7 @@
           radarr = import ./modules/services/radarr.nix;
           caddy = import ./modules/services/caddy.nix;
           immich = import ./modules/services/immich.nix;
+          unpackerr = import ./modules/services/unpackerr.nix;
         };
       };
 
