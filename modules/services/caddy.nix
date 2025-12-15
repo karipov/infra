@@ -67,6 +67,41 @@ in
           reverse_proxy localhost:5055
         '';
       };
+
+      "radarr.${baseDomain}" = {
+        useACMEHost = baseDomain;
+        extraConfig = ''
+          reverse_proxy localhost:7878
+        '';
+      };
+
+      "sonarr.${baseDomain}" = {
+        useACMEHost = baseDomain;
+        extraConfig = ''
+          reverse_proxy localhost:8989
+        '';
+      };
+
+      "prowlarr.${baseDomain}" = {
+        useACMEHost = baseDomain;
+        extraConfig = ''
+          reverse_proxy localhost:9696
+        '';
+      };
+
+      "bazarr.${baseDomain}" = {
+        useACMEHost = baseDomain;
+        extraConfig = ''
+          reverse_proxy localhost:6767
+        '';
+      };
+
+      "qbittorrent.${baseDomain}" = {
+        useACMEHost = baseDomain;
+        extraConfig = ''
+          reverse_proxy localhost:8080
+        '';
+      };
     };
   };
 
