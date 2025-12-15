@@ -19,6 +19,7 @@ in
     self.nixosModules.services.ssh
     self.nixosModules.services.tailscale
     self.nixosModules.services.jellyfin
+    self.nixosModules.services.jellyseerr
     self.nixosModules.services.qbittorrent
     self.nixosModules.services.prowlarr
     self.nixosModules.services.sonarr
