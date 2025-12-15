@@ -24,6 +24,7 @@
           ssh = import ./modules/services/ssh.nix;
           tailscale = import ./modules/services/tailscale.nix;
           jellyfin = import ./modules/services/jellyfin.nix;
+          jellyseerr = import ./modules/services/jellyseerr.nix;
           qbittorrent = import ./modules/services/qbittorrent.nix;
           prowlarr = import ./modules/services/prowlarr.nix;
           sonarr = import ./modules/services/sonarr.nix;

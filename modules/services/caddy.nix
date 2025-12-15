@@ -60,6 +60,13 @@ in
           reverse_proxy http://[::1]:2283
         '';
       };
+
+      "request.${baseDomain}" = {
+        useACMEHost = baseDomain;
+        extraConfig = ''
+          reverse_proxy localhost:5055
+        '';
+      };
     };
   };
 
