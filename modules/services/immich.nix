@@ -1,13 +1,11 @@
 { config, ... }:
 
-let
-  immichPort = 2283;
-in
 {
   services.immich = {
-    enable = false;
-    port = immichPort;
+    enable = true;
+    port = 2283;
     accelerationDevices = null;
+    mediaLocation = "/mnt/fast/personal/photos";
   };
 
   # configure immich user and add to video and render groups for GPU access (hardware acceleration)
