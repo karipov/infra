@@ -5,7 +5,7 @@ let
 in
 {
   services.immich = {
-    enable = true;
+    enable = false;
     port = immichPort;
     accelerationDevices = null;
   };
