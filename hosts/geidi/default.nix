@@ -28,6 +28,7 @@ in
     self.nixosModules.services.caddy
     self.nixosModules.services.immich
     self.nixosModules.services.unpackerr
+    self.nixosModules.services.profilarr
   ];
 
   services.rust-motd.enable = true;
