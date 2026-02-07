@@ -4,17 +4,13 @@ let
   baseDomain = "komron.me";
   cloudflareCredentialsFile = "/etc/nixos/secrets/cloudflare-dns.env";
   
-  # Helper function to generate reverse_proxy config with IP forwarding and WebSocket support
+  # Helper function to generate reverse_proxy config with IP forwarding
   reverseProxyConfig = upstream: ''
     reverse_proxy ${upstream} {
       # Forward real client IP address
       header_up X-Real-IP {remote_host}
       header_up X-Forwarded-For {remote_host}
       header_up X-Forwarded-Proto {scheme}
-      # Support WebSockets
-      transport http {
-        websocket
-      }
     }
   '';
 in
