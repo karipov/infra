@@ -34,6 +34,7 @@
           immich = import ./modules/services/immich.nix;
           unpackerr = import ./modules/services/unpackerr.nix;
           profilarr = import ./modules/services/profilarr.nix;
+          minecraft = import ./modules/services/minecraft.nix;
         };
       };
 

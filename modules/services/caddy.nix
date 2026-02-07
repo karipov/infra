@@ -3,6 +3,20 @@
 let
   baseDomain = "komron.me";
   cloudflareCredentialsFile = "/etc/nixos/secrets/cloudflare-dns.env";
+  
+  # Helper function to generate reverse_proxy config with IP forwarding and WebSocket support
+  reverseProxyConfig = upstream: ''
+    reverse_proxy ${upstream} {
+      # Forward real client IP address
+      header_up X-Real-IP {remote_host}
+      header_up X-Forwarded-For {remote_host}
+      header_up X-Forwarded-Proto {scheme}
+      # Support WebSockets
+      transport http {
+        websocket
+      }
+    }
+  '';
 in
 {
   # configure ACME (Let's Encrypt) with Cloudflare DNS challenge
@@ -49,58 +63,42 @@ in
       # app-specific virtual hosts
       "watch.${baseDomain}" = {
         useACMEHost = baseDomain;
-        extraConfig = ''
-          reverse_proxy localhost:8096
-        '';
+        extraConfig = reverseProxyConfig "localhost:8096";
       };
 
       "immich.${baseDomain}" = {
         useACMEHost = baseDomain;
-        extraConfig = ''
-          reverse_proxy http://[::1]:2283
-        '';
+        extraConfig = reverseProxyConfig "http://[::1]:2283";
       };
 
       "request.${baseDomain}" = {
         useACMEHost = baseDomain;
-        extraConfig = ''
-          reverse_proxy localhost:5055
-        '';
+        extraConfig = reverseProxyConfig "localhost:5055";
       };
 
       "radarr.${baseDomain}" = {
         useACMEHost = baseDomain;
-        extraConfig = ''
-          reverse_proxy localhost:7878
-        '';
+        extraConfig = reverseProxyConfig "localhost:7878";
       };
 
       "sonarr.${baseDomain}" = {
         useACMEHost = baseDomain;
-        extraConfig = ''
-          reverse_proxy localhost:8989
-        '';
+        extraConfig = reverseProxyConfig "localhost:8989";
       };
 
       "prowlarr.${baseDomain}" = {
         useACMEHost = baseDomain;
-        extraConfig = ''
-          reverse_proxy localhost:9696
-        '';
+        extraConfig = reverseProxyConfig "localhost:9696";
       };
 
       "bazarr.${baseDomain}" = {
         useACMEHost = baseDomain;
-        extraConfig = ''
-          reverse_proxy localhost:6767
-        '';
+        extraConfig = reverseProxyConfig "localhost:6767";
       };
 
       "qbittorrent.${baseDomain}" = {
         useACMEHost = baseDomain;
-        extraConfig = ''
-          reverse_proxy localhost:8080
-        '';
+        extraConfig = reverseProxyConfig "localhost:8080";
       };
     };
   };

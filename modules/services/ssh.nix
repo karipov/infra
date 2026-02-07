@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   services.openssh = {
@@ -11,7 +11,11 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  services.eternal-terminal = {
+    enable = true;
+  };
+
+  networking.firewall.allowedTCPPorts = [ 22 2022 ];
 }
 
 
