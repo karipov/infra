@@ -14,9 +14,14 @@
     };
 
     serverProperties = {
-      motd = "komrons minecraft world";
+      # MOTD: § = formatting (centering via leading spaces often stripped by client/server)
+      motd = "§bturtle bay §aserver§r\\n§8(c) komron§r";
+      "max-players" = 10;
+      "level-seed" = "46182117";
+      "view-distance" = 16;
       "white-list" = true;
       "enforce-whitelist" = true;
+      "gamerule.keepInventory" = true;
       "enable-rcon" = true;
       "rcon.password" = "dummy";
       "rcon.port" = 25575;
