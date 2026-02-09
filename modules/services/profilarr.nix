@@ -1,10 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  # enable Docker for Profilarr
   virtualisation.docker.enable = true;
 
-  # create systemd service for Profilarr
   systemd.services.profilarr = {
     description = "Profilarr - Configuration management for Radarr/Sonarr";
     after = [ "network.target" "docker.service" ];
@@ -30,7 +28,6 @@
     };
   };
 
-  # configure profilarr user
   users.groups.profilarr = {};
   users.users.profilarr = {
     isSystemUser = true;
@@ -38,7 +35,6 @@
     extraGroups = [ "docker" ];
   };
 
-  # create data directory for Profilarr
   systemd.tmpfiles.rules = [
     "d /var/lib/profilarr 0755 profilarr profilarr -"
   ];

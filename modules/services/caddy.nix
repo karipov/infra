@@ -3,11 +3,9 @@
 let
   baseDomain = "komron.me";
   cloudflareCredentialsFile = "/etc/nixos/secrets/cloudflare-dns.env";
-  
-  # Helper function to generate reverse_proxy config with IP forwarding
+
   reverseProxyConfig = upstream: ''
     reverse_proxy ${upstream} {
-      # Forward real client IP address
       header_up X-Real-IP {remote_host}
       header_up X-Forwarded-For {remote_host}
       header_up X-Forwarded-Proto {scheme}
@@ -15,12 +13,10 @@ let
   '';
 in
 {
-  # configure ACME (Let's Encrypt) with Cloudflare DNS challenge
   security.acme = {
     acceptTerms = true;
     defaults.email = "cloudflare.ecologist040@passmail.net";
-    
-    # wildcard certificate for komron.me and *.komron.me
+
     certs.${baseDomain} = {
       domain = baseDomain;
       extraDomainNames = [ "*.${baseDomain}" ];
@@ -35,14 +31,12 @@ in
 
   services.caddy = {
     enable = true;
-    
-    # disable Caddy's automatic HTTPS - we'll use NixOS ACME certificates instead
+
     globalConfig = ''
       auto_https off
     '';
 
     virtualHosts = {
-      # general virtual hosts for redirecting HTTP to HTTPS
       "http://${baseDomain}" = {
         extraConfig = ''
           redir https://{host}{uri} permanent
@@ -55,8 +49,6 @@ in
         '';
       };
 
-
-      # app-specific virtual hosts
       "watch.${baseDomain}" = {
         useACMEHost = baseDomain;
         extraConfig = reverseProxyConfig "localhost:8096";
@@ -99,7 +91,6 @@ in
     };
   };
 
-  # only expose HTTP and HTTPS ports for Caddy
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 }
 
