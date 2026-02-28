@@ -30,6 +30,7 @@ in
     self.nixosModules.services.unpackerr
     self.nixosModules.services.profilarr
     self.nixosModules.services.minecraft
+    self.nixosModules.services.zeroclaw
   ];
 
   services.rust-motd.enable = true;
@@ -50,6 +51,8 @@ in
     "d /mnt/fast/personal/photos 2775 immich immich -"
     # Unpackerr config directory
     "d /etc/unpackerr 0755 unpackerr unpackerr -"
+    # ZeroClaw config directory (config.toml with API keys managed manually)
+    "d /etc/zeroclaw 0700 zeroclaw zeroclaw -"
   ];
 }
 
