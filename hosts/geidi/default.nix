@@ -30,6 +30,7 @@ in
     self.nixosModules.services.unpackerr
     self.nixosModules.services.profilarr
     self.nixosModules.services.minecraft
+    self.nixosModules.services.aiostreams
   ];
 
   services.rust-motd.enable = true;

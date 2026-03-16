@@ -88,6 +88,11 @@ in
         useACMEHost = baseDomain;
         extraConfig = reverseProxyConfig "localhost:8080";
       };
+
+      "stremio.${baseDomain}" = {
+        useACMEHost = baseDomain;
+        extraConfig = reverseProxyConfig "localhost:3000";
+      };
     };
   };
 
